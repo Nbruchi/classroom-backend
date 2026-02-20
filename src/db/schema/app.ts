@@ -1,12 +1,15 @@
 import { relations } from "drizzle-orm";
-import { index, integer, jsonb, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+    index,
+    integer,
+    jsonb,
+    pgEnum,
+    pgTable,
+    text,
+    timestamp,
+    varchar,
+} from "drizzle-orm/pg-core";
 import { user } from "./auth";
-
-export type Schedule = {
-    day: string;
-    startTime: string;
-    endTime: string;
-};
 
 const timestamps = {
     createdAt: timestamp("created_at").defaultNow().notNull(),
