@@ -47,9 +47,9 @@ subjectsRouter.get("/", async (req, res) => {
             .from(subjects)
             .leftJoin(departments, eq(subjects.departmentId, departments.id))
             .where(whereClause)
+            .orderBy(desc(subjects.createdAt))
             .limit(limitPerPage)
-            .offset(offset)
-            .orderBy(desc(subjects.createdAt));
+            .offset(offset);
 
         res.status(200).json({
             data: subjectsList,

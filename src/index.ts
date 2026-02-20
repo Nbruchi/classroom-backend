@@ -3,9 +3,15 @@ import express from "express";
 import { subjectsRouter } from "./routes/subjects";
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
+
+if (!process.env.FRONTEND_URL) {
+    console.warn(
+        "FRONTEND_URL is not set. CORS will not be configured properly.",
+    );
+}
 
 app.use(
     cors({
