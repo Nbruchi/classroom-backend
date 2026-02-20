@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { subjectsRouter } from "./routes/subjects";
+import securityMiddleware from "./middleware/security";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -24,6 +25,8 @@ app.use(
 app.get("/", (req, res) => {
     res.send("Hello, welcome to the Classroom API!");
 });
+
+app.use(securityMiddleware);
 
 app.use("/api/subjects", subjectsRouter);
 
