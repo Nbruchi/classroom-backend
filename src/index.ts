@@ -1,7 +1,11 @@
+import AgentAPI from "apminsight"
+AgentAPI.config();
 import cors from "cors";
 import express from "express";
 import { subjectsRouter } from "./routes/subjects";
 import securityMiddleware from "./middleware/security";
+import { auth } from "./lib/auth";
+import { toNodeHandler } from "better-auth/node";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -21,6 +25,8 @@ app.use(
         credentials: true,
     }),
 );
+
+app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.get("/", (req, res) => {
     res.send("Hello, welcome to the Classroom API!");
