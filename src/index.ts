@@ -1,11 +1,13 @@
-import AgentAPI from "apminsight"
+import AgentAPI from "apminsight";
 AgentAPI.config();
 import cors from "cors";
 import express from "express";
+import { auth } from "./lib/auth.js";
+import { usersRouter } from "./routes/users.js";
+import { toNodeHandler } from "better-auth/node";
+import { classesRouter } from "./routes/classes.js";
 import { subjectsRouter } from "./routes/subjects.js";
 import securityMiddleware from "./middleware/security.js";
-import { auth } from "./lib/auth.js";
-import { toNodeHandler } from "better-auth/node";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -35,6 +37,8 @@ app.get("/", (req, res) => {
 app.use(securityMiddleware);
 
 app.use("/api/subjects", subjectsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/classes", classesRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
